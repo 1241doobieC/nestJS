@@ -40,4 +40,4 @@ error在`src/error.ts`
 
 ## 檢驗
 
-執行`test:q1` ~ `test:q4`
+執行`pnpm test:q1` ~ `pnpm test:q4`
