@@ -16,7 +16,7 @@
 
 1. vscode 開啟專案後執行 `pnpm i`
 2. 安裝完成後`pnpm start:dev`
-3. 開啟瀏覽器進入以下網址 `http://127.0.0.1/api-docs` <!-- Lack of port number -->
+3. 開啟瀏覽器進入以下網址 `http://127.0.0.1:3000/api-docs` <!-- Lack of port number -->
 
 ## 題目
 
@@ -40,16 +40,4 @@ error在`src/error.ts`
 
 ## 檢驗
 
-執行`test:q1` ~ `test:q4`,
-
-### 加分題
-
-#### 1. 使用couchbase 改寫userRepositoryService and postRepositoryService
-
-https://www.couchbase.com/
-sdk: https://docs.couchbase.com/nodejs-sdk/current/hello-world/start-using-sdk.html
-saas: https://www.couchbase.com/products/capella
-
-#### 2. 假設 user 與 post 是兩個微服務,user 是主服務, post是遠端服務, 用nestjs microservice 的 rabbitmq在 user-post module 裡完成模擬遠端調用
-
-doc: https://docs.nestjs.com/microservices/rabbitmq
+執行`test:q1` ~ `test:q4`
