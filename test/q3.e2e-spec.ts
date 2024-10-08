@@ -40,10 +40,10 @@ describe('AppController (e2e)', () => {
   });
 
   it('/posts/1 badrequest fail (GET)', () => {
-    return request(app.getHttpServer()).get('/posts/test').expect(400);
+    return request(app.getHttpServer()).get('/posts/1').expect(400);
   });
 
   it('/posts/1 notfound fail (GET)', () => {
-    return request(app.getHttpServer()).get('/posts/999').expect(404);
+    return request(app.getHttpServer()).get('/posts/1').expect(404);
   });
 });
