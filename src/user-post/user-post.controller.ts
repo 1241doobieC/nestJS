@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { UserPost } from './entities/user-post.entity';
 import { Post as Posts } from '../post/entities/post.entity';
@@ -53,14 +54,31 @@ export class UserPostController {
   @Get('/posts/:id')
   async getPostById(@Param('id', ParseIntPipe) id: number): Promise<Posts> {
     try {
-      const post = await this.postService.findOne(id);
+      const post = await this.postService.realFindOne(id);
+      if (!post) throw new NotFoundException();
       return post;
     } catch (error) {
-      // console.log(error.name);
-      if (error.name === 'Error') {
+      console.log('Caught Error:', error.message);
+      if (error.message.includes('Network error')) {
+        let attempt = 1;
+        const maxAttempt = 3;
+
+        while (attempt < maxAttempt) {
+          try {
+            const retry = await this.postService.realFindOne(id);
+            return retry;
+          } catch (err) {
+            attempt++;
+            if (attempt === maxAttempt) {
+              return await this.postService.realFindOne(id);
+            }
+          }
+        }
+      } else if (error.message.includes('Internal error')) {
+        throw new BadRequestException();
+      } else if (error.message.includes('Not Found')) {
         throw new NotFoundException();
       }
-      throw error;
     }
   }
 
