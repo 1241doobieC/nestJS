@@ -29,12 +29,13 @@ export class UserPostController {
     if (!user) throw new Error('User not found.');
 
     let posts = await this.postService.findAll();
-    posts = posts.filter((post) => post.authorId === userId);
+
+    posts = posts.filter((post) => post.authorId === user.id);
 
     return {
-      id: parseInt(id, 10),
-      name: 'John Doe',
-      email: 'example',
+      id: user.id,
+      name: user.name,
+      email: user.email,
       posts: posts,
     };
   }
